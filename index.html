@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+</head>
+<body>
+
+<div id="container"></div>
+
+<script type="text/jsx">
+    var Hello = React.createClass({
+
+
+        getInitialState: function () {
+            alert('init');
+            return {
+                opacity: 1.0,
+                fontSize: '12px'
+            }
+        },
+        render: function () {
+            return (
+                    <div style={this.state}>
+                        Hello {this.props.name}
+                    </div>
+            )
+        },
+        componentWillMount: function () {
+            alert('will');
+        },
+        componentDidMount: function () {
+            alert('did');
+
+            window.setTimeout(function () {
+                this.setState({
+                    opacity: 0.5,
+                    fontSize: '44px'
+                })
+            }.bind(this), 1000)
+        },
+        componentDidUpdate: function () {
+            alert('update')
+        },
+        componentWillReceiveProps: function (nextProps) {
+            alert('RecieveProps:' + nextProps)
+        },
+        shouldComponentUpdate: function (nextProps, nextState) {
+            alert('should:' + nextState.opacity);
+            return true;
+
+        }
+    });
+
+    React.render(<Hello name="world"/>, document.getElementById('container'));
+
+</script>
+</body>
+</html>
